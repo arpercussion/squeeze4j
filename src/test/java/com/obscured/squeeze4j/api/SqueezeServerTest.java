@@ -3,7 +3,6 @@ package com.obscured.squeeze4j.api;
 import com.obscured.squeeze4j.models.PlayerWrapper;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 
 public class SqueezeServerTest {
@@ -15,7 +14,7 @@ public class SqueezeServerTest {
 		server = new SqueezeServer();
 	}
 
-	@Test
+	//@Test
 	public void getPlayers() throws Exception {
 		PlayerWrapper playerWrapper = server.getPlayers();
 
