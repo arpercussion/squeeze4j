@@ -77,9 +77,9 @@ abstract class SlimRequest {
 	 * @throws UnirestException exception when request is bad
 	 */
 	<T> T request(Class<T> clazz, String params) throws UnirestException {
-		HttpResponse<T> result = Unirest.post(Config.get("lms.address"))
+		HttpResponse<T> result = Unirest.post(Config.get("lms_address"))
 		                                .header("accept", "application/json")
-		                                .basicAuth(Config.get("lms.username"), Config.get("lms.password"))
+		                                .basicAuth(Config.get("lms_username"), Config.get("lms_password"))
 		                                .body(params)
 		                                .asObject(clazz);
 		return (result.getStatus() == 200) ? result.getBody() : null;
@@ -93,9 +93,9 @@ abstract class SlimRequest {
 	 * @throws UnirestException exception when request is bad
 	 */
 	JsonNode request(String params) throws UnirestException {
-		HttpResponse<JsonNode> result = Unirest.post(Config.get("lms.address"))
+		HttpResponse<JsonNode> result = Unirest.post(Config.get("lms_address"))
 		                                       .header("accept", "application/json")
-		                                       .basicAuth(Config.get("lms.username"), Config.get("lms.password"))
+		                                       .basicAuth(Config.get("lms_username"), Config.get("lms_password"))
 		                                       .body(params)
 		                                       .asJson();
 		return (result.getStatus() == 200) ? result.getBody() : null;
