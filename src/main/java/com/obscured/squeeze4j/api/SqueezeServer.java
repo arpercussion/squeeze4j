@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class SqueezeServer extends SlimRequest {
 	public Artists getArtists(String artist, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("artists", s, t);
+		List<Object> list = new ArrayList<>(Arrays.asList("artists", s, t));
 		if (StringUtils.isNotEmpty(artist)) {
 			list.add("search:" + artist);
 		}
@@ -73,7 +74,7 @@ public class SqueezeServer extends SlimRequest {
 	public Albums getAlbums(String album, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("albums", s, t, "tags:tSS");
+		List<Object> list = new ArrayList<>(Arrays.asList("albums", s, t, "tags:tSS"));
 		if (StringUtils.isNotEmpty(album)) {
 			list.add("search:" + album);
 		}
@@ -100,7 +101,7 @@ public class SqueezeServer extends SlimRequest {
 	public Songs getSongs(String song, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("songs", s, t, "tags:seuSp");
+		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "tags:seuSp"));
 		if (StringUtils.isNotEmpty(song)) {
 			list.add("search:" + song);
 		}
@@ -127,7 +128,7 @@ public class SqueezeServer extends SlimRequest {
 	public Genres getGenres(String genre, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("genres", s, t);
+		List<Object> list = new ArrayList<>(Arrays.asList("genres", s, t));
 		if (StringUtils.isNotEmpty(genre)) {
 			list.add("search:" + genre);
 		}
@@ -154,7 +155,7 @@ public class SqueezeServer extends SlimRequest {
 	public Playlists getPlaylists(String playlist, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "0";
 		String t = (take != null && take >= 1) ? take.toString() : "10000";
-		List<Object> list = Arrays.asList("playlists", s, t, "tags:u");
+		List<Object> list = new ArrayList<>(Arrays.asList("playlists", s, t, "tags:u"));
 		if (StringUtils.isNotEmpty(playlist)) {
 			list.add("search:" + playlist);
 		}
@@ -181,7 +182,7 @@ public class SqueezeServer extends SlimRequest {
 	public Albums getAlbumsByArtistId(long artistId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("albums", s, t, "artist_id:" + artistId, "tags:tSS");
+		List<Object> list = new ArrayList<>(Arrays.asList("albums", s, t, "artist_id:" + artistId, "tags:tSS"));
 		String params = setParameters(null, list);
 		Albums albums = null;
 		try {
@@ -203,7 +204,7 @@ public class SqueezeServer extends SlimRequest {
 	public Songs getSongsByAlbumId(long albumId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("songs", s, t, "album_id:" + albumId, "tags:seuSp");
+		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "album_id:" + albumId, "tags:seuSp"));
 		String params = setParameters(null, list);
 		Songs titles = null;
 		try {
@@ -225,7 +226,7 @@ public class SqueezeServer extends SlimRequest {
 	public Songs getSongsByArtistId(long artistId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("songs", s, t, "artist_id:" + artistId, "tags:seuSp");
+		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "artist_id:" + artistId, "tags:seuSp"));
 		String params = setParameters(null, list);
 		Songs titles = null;
 		try {
@@ -247,7 +248,7 @@ public class SqueezeServer extends SlimRequest {
 	public Songs getSongsByGenreId(long genreId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
-		List<Object> list = Arrays.asList("songs", s, t, "genre_id:" + genreId, "tags:seuSp");
+		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "genre_id:" + genreId, "tags:seuSp"));
 		String params = setParameters(null, list);
 		Songs titles = null;
 		try {
