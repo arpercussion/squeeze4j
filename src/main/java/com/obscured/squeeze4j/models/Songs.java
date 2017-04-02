@@ -11,23 +11,15 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
 		"count",
-		"players_loop"
+		"titles_loop"
 })
-public class PlayerWrapper {
-
-	@JsonProperty("players_loop")
-	private List<Players> players = null;
+public class Songs {
 
 	@JsonProperty("count")
 	private Integer count;
 
-	public List<Players> getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(List<Players> players) {
-		this.players = players;
-	}
+	@JsonProperty("titles_loop")
+	private List<Song> titles = null;
 
 	public Integer getCount() {
 		return count;
@@ -37,9 +29,17 @@ public class PlayerWrapper {
 		this.count = count;
 	}
 
+	public List<Song> getTitles() {
+		return titles;
+	}
+
+	public void setTitles(List<Song> titles) {
+		this.titles = titles;
+	}
+
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(players).append(count).toHashCode();
+		return new HashCodeBuilder().append(count).append(titles).toHashCode();
 	}
 
 	@Override
@@ -47,10 +47,11 @@ public class PlayerWrapper {
 		if (other == this) {
 			return true;
 		}
-		if ((other instanceof PlayerWrapper) == false) {
+		if (!(other instanceof Songs)) {
 			return false;
 		}
-		PlayerWrapper rhs = ((PlayerWrapper) other);
-		return new EqualsBuilder().append(players, rhs.players).append(count, rhs.count).isEquals();
+		Songs rhs = ((Songs) other);
+		return new EqualsBuilder().append(count, rhs.count).append(titles, rhs.titles).isEquals();
 	}
+
 }

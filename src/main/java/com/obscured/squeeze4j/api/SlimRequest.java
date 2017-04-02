@@ -7,12 +7,17 @@ import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.obscured.squeeze4j.Config;
+import com.obscured.squeeze4j.converters.Utilities;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 abstract class SlimRequest {
 
@@ -77,7 +82,8 @@ abstract class SlimRequest {
 	 * @throws UnirestException exception when request is bad
 	 */
 	<T> T request(Class<T> clazz, String params) throws UnirestException {
-		HttpResponse<T> result = Unirest.post(Config.get("lms_address"))
+		String url = buildUrl(null);
+		HttpResponse<T> result = Unirest.post(url)
 		                                .header("accept", "application/json")
 		                                .basicAuth(Config.get("lms_username"), Config.get("lms_password"))
 		                                .body(params)
@@ -93,11 +99,55 @@ abstract class SlimRequest {
 	 * @throws UnirestException exception when request is bad
 	 */
 	JsonNode request(String params) throws UnirestException {
-		HttpResponse<JsonNode> result = Unirest.post(Config.get("lms_address"))
+		String url = buildUrl(null);
+		HttpResponse<JsonNode> result = Unirest.post(url)
 		                                       .header("accept", "application/json")
 		                                       .basicAuth(Config.get("lms_username"), Config.get("lms_password"))
 		                                       .body(params)
 		                                       .asJson();
 		return (result.getStatus() == 200) ? result.getBody() : null;
+	}
+
+	/**
+	 * Download file at given path
+	 *
+	 * @param path the path for the request appended to base url
+	 * @return InputStream
+	 * @throws UnirestException exception when request is bad
+	 */
+	InputStream download(String path) throws UnirestException {
+		String url = buildUrl(path);
+		HttpResponse<InputStream> result = Unirest.get(url)
+		                                          .header("content-type", "*/*")
+		                                          .basicAuth(Config.get("lms_username"), Config.get("lms_password"))
+		                                          .asBinary();
+		return (result.getStatus() == 200) ? result.getBody() : null;
+	}
+
+	private String buildUrl(String path) {
+		String url = null;
+		String hostname = Config.get("lms_hostname");
+		String port = Config.get("lms_port");
+		path = StringUtils.isEmpty(path) ? "/jsonrpc.js" : path;
+		if (Stream.of("http://", "https://").noneMatch(hostname::startsWith)) {
+			hostname = "http://" + hostname;
+		}
+		try {
+			Integer mport;
+			URI uri = new URI(hostname);
+			if (uri.getPort() != -1 && port == null) {
+				mport = uri.getPort();
+			} else {
+				mport = Utilities.tryGetInteger(port);
+			}
+			if (mport == null) {
+				mport = -1;
+			}
+			uri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), mport, path, null, null);
+			url = uri.toString();
+		} catch (URISyntaxException e) {
+			// noop
+		}
+		return url;
 	}
 }

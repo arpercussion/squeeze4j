@@ -253,6 +253,15 @@ public class SqueezePlayer extends SlimRequest {
 		return songInfo;
 	}
 
+	public void play() {
+		String params = setParameters(this.playerId, Collections.singletonList("play"));
+		try {
+			request(params);
+		} catch (UnirestException e) {
+			logger.error(e);
+		}
+	}
+
 	/**
 	 * Play a song, or play songs by artist, album or genre
 	 *

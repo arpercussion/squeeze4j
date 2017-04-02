@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.io.IOException;
 
-public class DashToInteger extends JsonDeserializer {
+public class DashToInteger extends JsonDeserializer<Integer> {
 	@Override
-	public Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+	public Integer deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
 			throws IOException {
 
 		Integer i = 0;

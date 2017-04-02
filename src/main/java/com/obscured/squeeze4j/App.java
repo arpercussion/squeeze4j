@@ -2,7 +2,7 @@ package com.obscured.squeeze4j;
 
 import com.obscured.squeeze4j.api.SqueezePlayer;
 import com.obscured.squeeze4j.api.SqueezeServer;
-import com.obscured.squeeze4j.models.GenreWrapper;
+import com.obscured.squeeze4j.models.Genres;
 import com.obscured.squeeze4j.models.SongInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +17,7 @@ public class App {
 		try {
 			// server
 			SqueezeServer server = new SqueezeServer();
-			GenreWrapper genres = server.getGenres(null, null, null);
+			Genres genres = server.getGenres(null, null, null);
 			System.out.println(genres.getCount());
 
 			// player

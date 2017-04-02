@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
-public class IntegerToDash extends JsonSerializer {
+public class IntegerToDash extends JsonSerializer<Integer> {
 	@Override
-	public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+	public void serialize(Integer o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
 			throws IOException {
 
 		Object r = "-";

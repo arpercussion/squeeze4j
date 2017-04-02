@@ -6,56 +6,40 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-		"id",
-		"url",
-		"playlist"
+		"count",
+		"playlists_loop"
 })
 public class Playlists {
 
-	@JsonProperty("id")
-	private Integer id;
+	@JsonProperty("count")
+	private Integer count;
 
-	@JsonProperty("url")
-	private String url;
+	@JsonProperty("playlists_loop")
+	private List<Playlist> playlists = null;
 
-	@JsonProperty("playlist")
-	private String playlist;
-
-	@JsonProperty("id")
-	public Integer getId() {
-		return id;
+	public Integer getCount() {
+		return count;
 	}
 
-	@JsonProperty("id")
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
-	@JsonProperty("url")
-	public String getUrl() {
-		return url;
+	public List<Playlist> getPlaylists() {
+		return playlists;
 	}
 
-	@JsonProperty("url")
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	@JsonProperty("playlist")
-	public String getPlaylist() {
-		return playlist;
-	}
-
-	@JsonProperty("playlist")
-	public void setPlaylist(String playlist) {
-		this.playlist = playlist;
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(url).append(id).append(playlist).toHashCode();
+		return new HashCodeBuilder().append(count).append(playlists).toHashCode();
 	}
 
 	@Override
@@ -67,10 +51,7 @@ public class Playlists {
 			return false;
 		}
 		Playlists rhs = ((Playlists) other);
-		return new EqualsBuilder().append(url, rhs.url)
-		                          .append(id, rhs.id)
-		                          .append(playlist, rhs.playlist)
-		                          .isEquals();
+		return new EqualsBuilder().append(count, rhs.count).append(playlists, rhs.playlists).isEquals();
 	}
 
 }

@@ -6,43 +6,39 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-		"id",
-		"artist"
+		"count",
+		"artists_loop"
 })
 public class Artists {
-	@JsonProperty("id")
-	private Integer id;
+	@JsonProperty("count")
+	private Integer count;
 
-	@JsonProperty("artist")
-	private String artist;
+	@JsonProperty("artists_loop")
+	private List<Artist> artists = null;
 
-	@JsonProperty("id")
-	public Integer getId() {
-		return id;
+	public Integer getCount() {
+		return count;
 	}
 
-	@JsonProperty("id")
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
-	@JsonProperty("artist")
-	public String getArtist() {
-		return artist;
+	public List<Artist> getArtists() {
+		return artists;
 	}
 
-	@JsonProperty("artist")
-	public void setArtist(String artist) {
-		this.artist = artist;
+	public void setArtists(List<Artist> artists) {
+		this.artists = artists;
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(id)
-		                            .append(artist)
-		                            .toHashCode();
+		return new HashCodeBuilder().append(count).append(artists).toHashCode();
 	}
 
 	@Override
@@ -54,8 +50,6 @@ public class Artists {
 			return false;
 		}
 		Artists rhs = ((Artists) other);
-		return new EqualsBuilder().append(id, rhs.id)
-		                          .append(artist, rhs.artist)
-		                          .isEquals();
+		return new EqualsBuilder().append(count, rhs.count).append(artists, rhs.artists).isEquals();
 	}
 }

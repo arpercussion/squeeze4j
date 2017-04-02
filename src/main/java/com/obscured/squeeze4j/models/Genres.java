@@ -6,43 +6,39 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-		"id",
-		"genre"
+		"count",
+		"genres_loop"
 })
 public class Genres {
-	@JsonProperty("id")
-	private Integer id;
+	@JsonProperty("count")
+	private Integer count;
 
-	@JsonProperty("genre")
-	private String genre;
+	@JsonProperty("genres_loop")
+	private List<Genre> genres = null;
 
-	@JsonProperty("id")
-	public Integer getId() {
-		return id;
+	public Integer getCount() {
+		return count;
 	}
 
-	@JsonProperty("id")
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
-	@JsonProperty("genre")
-	public String getGenre() {
-		return genre;
+	public List<Genre> getGenres() {
+		return genres;
 	}
 
-	@JsonProperty("genre")
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(id)
-		                            .append(genre)
-		                            .toHashCode();
+		return new HashCodeBuilder().append(count).append(genres).toHashCode();
 	}
 
 	@Override
@@ -54,8 +50,6 @@ public class Genres {
 			return false;
 		}
 		Genres rhs = ((Genres) other);
-		return new EqualsBuilder().append(id, rhs.id)
-		                          .append(genre, rhs.genre)
-		                          .isEquals();
+		return new EqualsBuilder().append(count, rhs.count).append(genres, rhs.genres).isEquals();
 	}
 }

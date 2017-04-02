@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +24,11 @@ public class SqueezeServer extends SlimRequest {
 	 *
 	 * @return Players object
 	 */
-	public PlayerWrapper getPlayers() {
-		PlayerWrapper players = null;
+	public Players getPlayers() {
+		Players players = null;
 		try {
 			String params = setParameters(null, Arrays.asList("players", "-"));
-			players = request(PlayerWrapper.class, params);
+			players = request(Players.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -42,7 +43,7 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take   page size
 	 * @return Artists object
 	 */
-	public ArtistWrapper getArtists(String artist, Integer skip, Integer take) {
+	public Artists getArtists(String artist, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("artists", s, t);
@@ -51,9 +52,9 @@ public class SqueezeServer extends SlimRequest {
 		}
 		String params = setParameters(null, list);
 
-		ArtistWrapper artists = null;
+		Artists artists = null;
 		try {
-			artists = request(ArtistWrapper.class, params);
+			artists = request(Artists.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -69,7 +70,7 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take  page size
 	 * @return Albums object
 	 */
-	public AlbumWrapper getAlbums(String album, Integer skip, Integer take) {
+	public Albums getAlbums(String album, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("albums", s, t, "tags:tSS");
@@ -78,9 +79,9 @@ public class SqueezeServer extends SlimRequest {
 		}
 		String params = setParameters(null, list);
 
-		AlbumWrapper albums = null;
+		Albums albums = null;
 		try {
-			albums = request(AlbumWrapper.class, params);
+			albums = request(Albums.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -96,7 +97,7 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take page size
 	 * @return Title object
 	 */
-	public TitleWrapper getSongs(String song, Integer skip, Integer take) {
+	public Songs getSongs(String song, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("songs", s, t, "tags:seuSp");
@@ -105,9 +106,9 @@ public class SqueezeServer extends SlimRequest {
 		}
 		String params = setParameters(null, list);
 
-		TitleWrapper songs = null;
+		Songs songs = null;
 		try {
-			songs = request(TitleWrapper.class, params);
+			songs = request(Songs.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -123,7 +124,7 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take  page size
 	 * @return Genres object
 	 */
-	public GenreWrapper getGenres(String genre, Integer skip, Integer take) {
+	public Genres getGenres(String genre, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("genres", s, t);
@@ -132,9 +133,9 @@ public class SqueezeServer extends SlimRequest {
 		}
 		String params = setParameters(null, list);
 
-		GenreWrapper genres = null;
+		Genres genres = null;
 		try {
-			genres = request(GenreWrapper.class, params);
+			genres = request(Genres.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -150,7 +151,7 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take     page size
 	 * @return Playlists object
 	 */
-	public PlaylistWrapper getPlaylists(String playlist, Integer skip, Integer take) {
+	public Playlists getPlaylists(String playlist, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "0";
 		String t = (take != null && take >= 1) ? take.toString() : "10000";
 		List<Object> list = Arrays.asList("playlists", s, t, "tags:u");
@@ -159,9 +160,9 @@ public class SqueezeServer extends SlimRequest {
 		}
 		String params = setParameters(null, list);
 
-		PlaylistWrapper playlists = null;
+		Playlists playlists = null;
 		try {
-			playlists = request(PlaylistWrapper.class, params);
+			playlists = request(Playlists.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -177,14 +178,14 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take     page size
 	 * @return Albums object
 	 */
-	public AlbumWrapper getAlbumsByArtistId(long artistId, Integer skip, Integer take) {
+	public Albums getAlbumsByArtistId(long artistId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("albums", s, t, "artist_id:" + artistId, "tags:tSS");
 		String params = setParameters(null, list);
-		AlbumWrapper albums = null;
+		Albums albums = null;
 		try {
-			albums = request(AlbumWrapper.class, params);
+			albums = request(Albums.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -199,14 +200,14 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take    page size
 	 * @return Titles object
 	 */
-	public TitleWrapper songsByAlbumId(long albumId, Integer skip, Integer take) {
+	public Songs getSongsByAlbumId(long albumId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("songs", s, t, "album_id:" + albumId, "tags:seuSp");
 		String params = setParameters(null, list);
-		TitleWrapper titles = null;
+		Songs titles = null;
 		try {
-			titles = request(TitleWrapper.class, params);
+			titles = request(Songs.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -221,14 +222,14 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take     page size
 	 * @return Titles object
 	 */
-	public TitleWrapper songsByArtistId(long artistId, Integer skip, Integer take) {
+	public Songs getSongsByArtistId(long artistId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("songs", s, t, "artist_id:" + artistId, "tags:seuSp");
 		String params = setParameters(null, list);
-		TitleWrapper titles = null;
+		Songs titles = null;
 		try {
-			titles = request(TitleWrapper.class, params);
+			titles = request(Songs.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -243,14 +244,14 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take    page size
 	 * @return Titles object
 	 */
-	public TitleWrapper songsByGenreId(long genreId, Integer skip, Integer take) {
+	public Songs getSongsByGenreId(long genreId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = Arrays.asList("songs", s, t, "genre_id:" + genreId, "tags:seuSp");
 		String params = setParameters(null, list);
-		TitleWrapper titles = null;
+		Songs titles = null;
 		try {
-			titles = request(TitleWrapper.class, params);
+			titles = request(Songs.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -282,4 +283,19 @@ public class SqueezeServer extends SlimRequest {
 		             .collect(Collectors.toConcurrentMap(Pair::getKey, Pair::getValue));
 	}
 
+	/**
+	 * Get the cover art
+	 *
+	 * @param path the cover art path
+	 * @return InputStream or null
+	 */
+	public InputStream getCoverImage(String path) {
+		InputStream result = null;
+		try {
+			result = this.download(path);
+		} catch (UnirestException e) {
+			logger.error(e);
+		}
+		return result;
+	}
 }

@@ -32,62 +32,50 @@ public class SongInfo {
 
 	private String coverUrl;
 
-	@JsonProperty("id")
 	public Integer getId() {
 		return id;
 	}
 
-	@JsonProperty("id")
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@JsonProperty("title")
 	public String getTitle() {
 		return title;
 	}
 
-	@JsonProperty("title")
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	@JsonProperty("artist")
 	public String getArtist() {
 		return artist;
 	}
 
-	@JsonProperty("artist")
 	public void setArtist(String artist) {
 		this.artist = artist;
 	}
 
-	@JsonProperty("album")
 	public String getAlbum() {
 		return album;
 	}
 
-	@JsonProperty("album")
 	public void setAlbum(String album) {
 		this.album = album;
 	}
 
-	@JsonProperty("genre")
 	public String getGenre() {
 		return genre;
 	}
 
-	@JsonProperty("genre")
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 
-	@JsonProperty("coverid")
 	public String getCoverId() {
 		return coverId;
 	}
 
-	@JsonProperty("coverid")
 	public void setCoverId(String coverId) {
 		this.coverId = coverId;
 	}
@@ -116,7 +104,7 @@ public class SongInfo {
 		if (other == this) {
 			return true;
 		}
-		if ((other instanceof SongInfo) == false) {
+		if (!(other instanceof SongInfo)) {
 			return false;
 		}
 		SongInfo rhs = ((SongInfo) other);

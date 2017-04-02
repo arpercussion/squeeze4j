@@ -6,58 +6,39 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-		"id",
-		"artist_id",
-		"title"
+		"count",
+		"albums_loop"
 })
 public class Albums {
-	@JsonProperty("id")
-	private Integer id;
+	@JsonProperty("count")
+	private Integer count;
 
-	@JsonProperty("artist_id")
-	private String artistId;
+	@JsonProperty("albums_loop")
+	private List<Album> albums = null;
 
-	@JsonProperty("album")
-	private String album;
-
-	@JsonProperty("id")
-	public Integer getId() {
-		return id;
+	public Integer getCount() {
+		return count;
 	}
 
-	@JsonProperty("id")
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
-	@JsonProperty("artist_id")
-	public String getArtistId() {
-		return artistId;
+	public List<Album> getAlbums() {
+		return albums;
 	}
 
-	@JsonProperty("artist_id")
-	public void setArtistId(String artistId) {
-		this.artistId = artistId;
-	}
-
-	@JsonProperty("album")
-	public String getAlbum() {
-		return album;
-	}
-
-	@JsonProperty("album")
-	public void setAlbum(String album) {
-		this.album = album;
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(id)
-		                            .append(artistId)
-		                            .append(album)
-		                            .toHashCode();
+		return new HashCodeBuilder().append(count).append(albums).toHashCode();
 	}
 
 	@Override
@@ -69,9 +50,6 @@ public class Albums {
 			return false;
 		}
 		Albums rhs = ((Albums) other);
-		return new EqualsBuilder().append(id, rhs.id)
-		                          .append(artistId, rhs.artistId)
-		                          .append(album, rhs.album)
-		                          .isEquals();
+		return new EqualsBuilder().append(count, rhs.count).append(albums, rhs.albums).isEquals();
 	}
 }
