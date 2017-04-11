@@ -98,7 +98,7 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take page size
 	 * @return Title object
 	 */
-	public Songs getSongs(String song, Integer skip, Integer take) {
+	public Tracks getTracks(String song, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "tags:seuSp"));
@@ -107,9 +107,9 @@ public class SqueezeServer extends SlimRequest {
 		}
 		String params = setParameters(null, list);
 
-		Songs songs = null;
+		Tracks songs = null;
 		try {
-			songs = request(Songs.class, params);
+			songs = request(Tracks.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -201,14 +201,14 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take    page size
 	 * @return Titles object
 	 */
-	public Songs getSongsByAlbumId(long albumId, Integer skip, Integer take) {
+	public Tracks getTracksByAlbumId(long albumId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "album_id:" + albumId, "tags:seuSp"));
 		String params = setParameters(null, list);
-		Songs titles = null;
+		Tracks titles = null;
 		try {
-			titles = request(Songs.class, params);
+			titles = request(Tracks.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -223,14 +223,14 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take     page size
 	 * @return Titles object
 	 */
-	public Songs getSongsByArtistId(long artistId, Integer skip, Integer take) {
+	public Tracks getTracksByArtistId(long artistId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "artist_id:" + artistId, "tags:seuSp"));
 		String params = setParameters(null, list);
-		Songs titles = null;
+		Tracks titles = null;
 		try {
-			titles = request(Songs.class, params);
+			titles = request(Tracks.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}
@@ -245,14 +245,14 @@ public class SqueezeServer extends SlimRequest {
 	 * @param take    page size
 	 * @return Titles object
 	 */
-	public Songs getSongsByGenreId(long genreId, Integer skip, Integer take) {
+	public Tracks getTracksByGenreId(long genreId, Integer skip, Integer take) {
 		String s = (skip != null && skip >= 0) ? skip.toString() : "_";
 		String t = (take != null && take >= 1) ? take.toString() : "_";
 		List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "genre_id:" + genreId, "tags:seuSp"));
 		String params = setParameters(null, list);
-		Songs titles = null;
+		Tracks titles = null;
 		try {
-			titles = request(Songs.class, params);
+			titles = request(Tracks.class, params);
 		} catch (UnirestException e) {
 			logger.error(e);
 		}

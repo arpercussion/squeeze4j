@@ -5,64 +5,100 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.obscured.squeeze4j.converters.BooleanToInteger;
 import com.obscured.squeeze4j.converters.DashToInteger;
+import com.obscured.squeeze4j.converters.IntegerToBoolean;
 import com.obscured.squeeze4j.converters.IntegerToDash;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-		"connected",
+		"seq_no",
+		"playerid",
 		"displaytype",
-		"canpoweroff",
+		"connected",
 		"ip",
-		"name",
 		"model",
+		"name",
+		"firmware",
 		"uuid",
 		"isplayer",
+		"canpoweroff",
+		"isplaying",
 		"playerindex",
-		"playerid"
+		"power",
+		"modelname"
 })
 public class Player {
 
-	@JsonProperty("connected")
-	private Integer connected;
+	@JsonProperty("seq_no")
+	private String seq_no;
+
+	@JsonProperty("playerid")
+	private String playerId;
 
 	@JsonProperty("displaytype")
 	private String displayType;
 
-	@JsonProperty("canpoweroff")
-	private Integer canPowerOff;
+	@JsonProperty("connected")
+	private Integer connected;
 
 	@JsonProperty("ip")
 	private String ip;
 
+	@JsonProperty("model")
+	private String model;
+
 	@JsonProperty("name")
 	private String name;
 
-	@JsonProperty("model")
-	private String model;
+	@JsonProperty("firmware")
+	private String firmware;
 
 	@JsonProperty("uuid")
 	private Object uuid;
 
 	@JsonProperty("isplayer")
-	private Integer isPlayer;
+	@JsonSerialize(using = BooleanToInteger.class)
+	@JsonDeserialize(using = IntegerToBoolean.class)
+	private Boolean isPlayer;
+
+	@JsonProperty("canpoweroff")
+	@JsonSerialize(using = BooleanToInteger.class)
+	@JsonDeserialize(using = IntegerToBoolean.class)
+	private Boolean canPowerOff;
+
+	@JsonProperty("isplaying")
+	@JsonSerialize(using = BooleanToInteger.class)
+	@JsonDeserialize(using = IntegerToBoolean.class)
+	private Boolean isPlaying;
 
 	@JsonProperty("playerindex")
 	@JsonSerialize(using = IntegerToDash.class)
 	@JsonDeserialize(using = DashToInteger.class)
 	private Integer playerIndex;
 
-	@JsonProperty("playerid")
-	private String playerId;
+	@JsonProperty("power")
+	private Integer power;
 
-	public Integer getConnected() {
-		return connected;
+	@JsonProperty("modelname")
+	private String modelName;
+
+	public String getSeq_no() {
+		return seq_no;
 	}
 
-	public void setConnected(Integer connected) {
-		this.connected = connected;
+	public void setSeq_no(String seq_no) {
+		this.seq_no = seq_no;
+	}
+
+	public String getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(String playerId) {
+		this.playerId = playerId;
 	}
 
 	public String getDisplayType() {
@@ -73,12 +109,12 @@ public class Player {
 		this.displayType = displayType;
 	}
 
-	public Integer getCanPowerOff() {
-		return canPowerOff;
+	public Integer getConnected() {
+		return connected;
 	}
 
-	public void setCanPowerOff(Integer canPowerOff) {
-		this.canPowerOff = canPowerOff;
+	public void setConnected(Integer connected) {
+		this.connected = connected;
 	}
 
 	public String getIp() {
@@ -89,6 +125,14 @@ public class Player {
 		this.ip = ip;
 	}
 
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -97,12 +141,12 @@ public class Player {
 		this.name = name;
 	}
 
-	public String getModel() {
-		return model;
+	public String getFirmware() {
+		return firmware;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setFirmware(String firmware) {
+		this.firmware = firmware;
 	}
 
 	public Object getUuid() {
@@ -113,12 +157,28 @@ public class Player {
 		this.uuid = uuid;
 	}
 
-	public Integer getIsPlayer() {
+	public Boolean getIsPlayer() {
 		return isPlayer;
 	}
 
-	public void setIsPlayer(Integer isPlayer) {
+	public void setIsPlayer(Boolean isPlayer) {
 		this.isPlayer = isPlayer;
+	}
+
+	public Boolean getCanPowerOff() {
+		return canPowerOff;
+	}
+
+	public void setCanPowerOff(Boolean canPowerOff) {
+		this.canPowerOff = canPowerOff;
+	}
+
+	public Boolean getIsPlaying() {
+		return isPlaying;
+	}
+
+	public void setIsPlaying(Boolean isPlaying) {
+		this.isPlaying = isPlaying;
 	}
 
 	public Integer getPlayerIndex() {
@@ -129,26 +189,39 @@ public class Player {
 		this.playerIndex = playerIndex;
 	}
 
-	public String getPlayerId() {
-		return playerId;
+	public Integer getPower() {
+		return power;
 	}
 
-	public void setPlayerid(String playerId) {
-		this.playerId = playerId;
+	public void setPower(Integer power) {
+		this.power = power;
+	}
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(connected)
+		return new HashCodeBuilder().append(seq_no)
+		                            .append(playerId)
 		                            .append(displayType)
-		                            .append(canPowerOff)
+		                            .append(connected)
 		                            .append(ip)
-		                            .append(name)
 		                            .append(model)
+		                            .append(name)
+		                            .append(firmware)
 		                            .append(uuid)
 		                            .append(isPlayer)
+		                            .append(canPowerOff)
+		                            .append(isPlaying)
 		                            .append(playerIndex)
-		                            .append(playerId)
+		                            .append(power)
+		                            .append(modelName)
 		                            .toHashCode();
 	}
 
@@ -161,16 +234,21 @@ public class Player {
 			return false;
 		}
 		Player rhs = ((Player) other);
-		return new EqualsBuilder().append(connected, rhs.connected)
+		return new EqualsBuilder().append(seq_no, rhs.seq_no)
+		                          .append(playerId, rhs.playerId)
 		                          .append(displayType, rhs.displayType)
-		                          .append(canPowerOff, rhs.canPowerOff)
+		                          .append(connected, rhs.connected)
 		                          .append(ip, rhs.ip)
-		                          .append(name, rhs.name)
 		                          .append(model, rhs.model)
+		                          .append(name, rhs.name)
+		                          .append(firmware, rhs.firmware)
 		                          .append(uuid, rhs.uuid)
 		                          .append(isPlayer, rhs.isPlayer)
+		                          .append(canPowerOff, rhs.canPowerOff)
+		                          .append(isPlaying, rhs.isPlaying)
 		                          .append(playerIndex, rhs.playerIndex)
-		                          .append(playerId, rhs.playerId)
+		                          .append(power, rhs.power)
+		                          .append(modelName, rhs.modelName)
 		                          .isEquals();
 	}
 

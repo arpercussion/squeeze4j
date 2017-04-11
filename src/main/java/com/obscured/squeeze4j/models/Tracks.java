@@ -13,13 +13,13 @@ import java.util.List;
 		"count",
 		"titles_loop"
 })
-public class Songs {
+public class Tracks {
 
 	@JsonProperty("count")
 	private Integer count;
 
 	@JsonProperty("titles_loop")
-	private List<Song> titles = null;
+	private List<Track> tracks = null;
 
 	public Integer getCount() {
 		return count;
@@ -29,17 +29,17 @@ public class Songs {
 		this.count = count;
 	}
 
-	public List<Song> getTitles() {
-		return titles;
+	public List<Track> getTracks() {
+		return tracks;
 	}
 
-	public void setTitles(List<Song> titles) {
-		this.titles = titles;
+	public void setTracks(List<Track> tracks) {
+		this.tracks = tracks;
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(count).append(titles).toHashCode();
+		return new HashCodeBuilder().append(count).append(tracks).toHashCode();
 	}
 
 	@Override
@@ -47,11 +47,11 @@ public class Songs {
 		if (other == this) {
 			return true;
 		}
-		if (!(other instanceof Songs)) {
+		if (!(other instanceof Tracks)) {
 			return false;
 		}
-		Songs rhs = ((Songs) other);
-		return new EqualsBuilder().append(count, rhs.count).append(titles, rhs.titles).isEquals();
+		Tracks rhs = ((Tracks) other);
+		return new EqualsBuilder().append(count, rhs.count).append(tracks, rhs.tracks).isEquals();
 	}
 
 }

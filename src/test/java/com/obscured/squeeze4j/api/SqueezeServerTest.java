@@ -45,7 +45,7 @@ public class SqueezeServerTest {
 
 	@Test
 	public void getSongs() throws Exception {
-		Songs songs = server.getSongs(null, null, null);
+		Tracks songs = server.getTracks("one", null, null);
 
 		Assert.assertNotNull("Songs is null", songs);
 		Assert.assertNotNull("Songs no count", songs.getCount());
@@ -77,7 +77,7 @@ public class SqueezeServerTest {
 
 	@Test
 	public void getSongsByAlbumId() throws Exception {
-		Songs songs = server.getSongsByAlbumId(3489, null, null);
+		Tracks songs = server.getTracksByAlbumId(3489, null, null);
 
 		Assert.assertNotNull("Songs is null", songs);
 		Assert.assertNotNull("Songs no count", songs.getCount());
@@ -85,7 +85,7 @@ public class SqueezeServerTest {
 
 	@Test
 	public void getSongsByArtistId() throws Exception {
-		Songs songs = server.getSongsByAlbumId(3911, null, null);
+		Tracks songs = server.getTracksByAlbumId(3911, null, null);
 
 		Assert.assertNotNull("Songs is null", songs);
 		Assert.assertNotNull("Songs no count", songs.getCount());
@@ -93,7 +93,7 @@ public class SqueezeServerTest {
 
 	@Test
 	public void getSongsByGenreId() throws Exception {
-		Songs songs = server.getSongsByAlbumId(397, null, null);
+		Tracks songs = server.getTracksByAlbumId(397, null, null);
 
 		Assert.assertNotNull("Songs is null", songs);
 		Assert.assertNotNull("Songs no count", songs.getCount());

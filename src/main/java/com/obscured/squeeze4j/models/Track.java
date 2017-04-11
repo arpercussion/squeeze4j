@@ -27,7 +27,7 @@ import java.util.List;
 		"trackartist_ids",
 		"genre_id"
 })
-public class Song {
+public class Track {
 
 	@JsonProperty("id")
 	private Integer id;
@@ -195,10 +195,10 @@ public class Song {
 		if (other == this) {
 			return true;
 		}
-		if (!(other instanceof Song)) {
+		if (!(other instanceof Track)) {
 			return false;
 		}
-		Song rhs = ((Song) other);
+		Track rhs = ((Track) other);
 		return new EqualsBuilder().append(id, rhs.id)
 		                          .append(title, rhs.title)
 		                          .append(artistId, rhs.artistId)
