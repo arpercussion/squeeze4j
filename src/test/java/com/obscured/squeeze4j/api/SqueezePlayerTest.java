@@ -59,6 +59,11 @@ public class SqueezePlayerTest {
 
 	@Test
 	public void volume() throws Exception {
+		int volume = player.volume(null);
+		Assert.assertNotNull(volume);
+
+		Integer newVolume = player.volume(42);
+		Assert.assertNull(newVolume);
 	}
 
 	@Test

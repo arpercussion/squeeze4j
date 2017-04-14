@@ -217,7 +217,7 @@ public class SqueezePlayer extends SlimRequest {
 	 * @param state 0/1/null
 	 * @return Volume level or null if setting volume
 	 */
-	public int volume(Integer state) {
+	public Integer volume(Integer state) {
 		Integer volume = null;
 		try {
 			String arg = (state == null) ? "?" : (state > 100) ? "100" : (state < 0) ? "0" : state.toString();
