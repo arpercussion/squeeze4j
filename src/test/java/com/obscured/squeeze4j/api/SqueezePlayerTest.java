@@ -72,6 +72,11 @@ public class SqueezePlayerTest {
 
 	@Test
 	public void play() throws Exception {
+		String url = null;
+		String genre = null;
+		String artist = "Robert Davies";
+		String album = null;
+		player.play(url, genre, artist, album);
 	}
 
 	@Test

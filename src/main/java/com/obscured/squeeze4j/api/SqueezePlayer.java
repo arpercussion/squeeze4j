@@ -276,7 +276,7 @@ public class SqueezePlayer extends SlimRequest {
 		String martist = (StringUtils.isEmpty(artist)) ? "*" : artist;
 		String malbum = (StringUtils.isEmpty(album)) ? "*" : album;
 
-		if (Stream.of(url, genre, artist, album).allMatch(String::isEmpty)) {
+		if (Stream.of(url, genre, artist, album).allMatch(StringUtils::isEmpty)) {
 			args = Arrays.asList("play");
 		} else if (StringUtils.isNotEmpty(url)) {
 			args = Arrays.asList("playlist", "play", url);
