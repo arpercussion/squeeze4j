@@ -12,14 +12,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sqlite.version>3.16.1</sqlite.version>
-        <compiler.version>3.5.1</compiler.version>
+        <sqlite.version>3.20.0</sqlite.version>
+        <compiler.version>3.6.1</compiler.version>
         <surefire.version>2.19.1</surefire.version>
         <junit.version>4.12</junit.version>
         <commons.version>3.5</commons.version>
         <unirest.version>1.4.9</unirest.version>
-        <jackson.version>2.8.7</jackson.version>
-        <log4j.version>2.5</log4j.version>
+        <jackson.version>2.8.9</jackson.version>
+        <log4j.version>2.8.2</log4j.version>
+        <hicari.version>2.6.1</hicari.version>
+        <hibernate-hikari.version>5.2.9.Final</hibernate-hikari.version>
         <!--
         These properties must be set to have "mvn test" work
         It can be accomplished via:

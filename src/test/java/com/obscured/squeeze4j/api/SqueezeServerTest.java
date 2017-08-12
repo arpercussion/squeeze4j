@@ -3,12 +3,6 @@ package com.obscured.squeeze4j.api;
 import com.obscured.squeeze4j.models.*;
 import org.junit.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Map;
 
 @Ignore
@@ -24,44 +18,6 @@ public class SqueezeServerTest {
 	public static void afterClass() {
 		server = null;
 	}
-
-	@Test
-	public void sqlite() {
-		Connection conn = null;
-		try {
-			Instant start = Instant.now();
-
-			String url = "jdbc:sqlite:/Users/aromano/temp/library.db";
-			//DriverManager.registerDriver(new org.sqlite.JDBC());
-			conn = DriverManager.getConnection(url);
-
-			String sql = "SELECT id, title FROM tracks;";
-//			PreparedStatement pstmt  = conn.prepareStatement(sql);
-
-//			pstmt.setString(1, "%Justice%");
-
-			Statement pstmt = conn.createStatement();
-			ResultSet rs = pstmt.executeQuery(sql);
-
-			Duration duration = Duration.between(start, Instant.now());
-			System.out.println("OPERATION TOOK " + duration.toMillis());
-
-			// loop through the result set
-			int count = 0;
-			while (rs.next()) {
-//				System.out.println("ID: " + rs.getInt("id"));
-//				System.out.println("TITLE: " + rs.getString("title"));
-////				System.out.println("URL: " + rs.getString("url"));
-//				System.out.println("------------------------");
-				count += 1;
-			}
-			System.out.println(count);
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-		}
-		System.out.println("Opened database successfully");
-	}
-
 
 	@Test
 	public void getPlayers() throws Exception {

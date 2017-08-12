@@ -138,7 +138,7 @@ abstract class SlimRequest {
 			if (uri.getPort() != -1 && port == null) {
 				mport = uri.getPort();
 			} else {
-				mport = Utilities.tryGetInteger(port);
+				mport = Utilities.tryParseInteger(port);
 			}
 			if (mport == null) {
 				mport = -1;

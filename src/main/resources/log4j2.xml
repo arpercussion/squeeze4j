@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration name="api-log" status="ERROR">
     <Properties>
-        <Property name="logLevel">TRACE</Property>
+        <Property name="LOG_LEVEL">${sys:log_level}</Property>
     </Properties>
 
     <Appenders>
         <Console name="STDOUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+        <RollingFile name="ROLLINGFILE" fileName="logs/squeeze4j.log"
+                     filePattern="logs/$${date:yyyy-MM}/squeeze4j-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
     </Appenders>
 
     <Loggers>
-        <Root level="${logLevel}">
+        <Root level="${LOG_LEVEL}">
             <AppenderRef ref="STDOUT"/>
         </Root>
     </Loggers>
