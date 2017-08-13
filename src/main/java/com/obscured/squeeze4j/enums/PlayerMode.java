@@ -20,7 +20,8 @@ public enum PlayerMode {
     SHUFFLE_OFF(13, "Shuffle OFF"),
     TURN_ON_SHUFFLE(14, "Turn ON shuffle"),
     TURN_OFF_SHUFFLE(15, "Turn OFF shuffle"),
-    STOP_SHUFFLING(16, "Stop Shuffling");
+    STOP_SHUFFLING(16, "Stop Shuffling"),
+    SHUFFLE_THE_MUSIC(17, "Shuffle the music");
 
     private final int id;
     private final String label;

@@ -138,7 +138,8 @@ abstract class SlimRequest {
         } else if (Stream.of(PlayerMode.REPEAT, PlayerMode.REPEAT_ON, PlayerMode.REPEAT_OFF).anyMatch(m -> m == mode)) {
             _mode = Arrays.asList("playlist", "repeat");
         } else if (Stream.of(PlayerMode.SHUFFLE, PlayerMode.SHUFFLE_ON, PlayerMode.SHUFFLE_OFF,
-                PlayerMode.TURN_ON_SHUFFLE, PlayerMode.TURN_OFF_SHUFFLE, PlayerMode.STOP_SHUFFLING).anyMatch(m -> m == mode)) {
+                PlayerMode.TURN_ON_SHUFFLE, PlayerMode.TURN_OFF_SHUFFLE, PlayerMode.STOP_SHUFFLING,
+                PlayerMode.SHUFFLE_THE_MUSIC).anyMatch(m -> m == mode)) {
             _mode = Arrays.asList("playlist", "shuffle");
         } else if (PlayerMode.STOP == mode) {
             _mode = Arrays.asList("stop");
