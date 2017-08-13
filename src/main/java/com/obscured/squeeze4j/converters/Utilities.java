@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 public class Utilities {
 
+    //region General Utils
+
     /**
      * safe parse string to integer
      *
@@ -140,4 +142,5 @@ public class Utilities {
     public static boolean contains(String s, Pattern pat) {
         return pat.matcher(s).find();
     }
+    //endregion
 }
