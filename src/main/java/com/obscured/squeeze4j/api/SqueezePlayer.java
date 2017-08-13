@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.obscured.squeeze4j.enums.PlayerMode;
-import com.obscured.squeeze4j.models.Mode;
 import com.obscured.squeeze4j.models.SongInfo;
+import com.obscured.squeeze4j.models.Status;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,24 +35,16 @@ public class SqueezePlayer extends SlimRequest {
      *
      * @return Mode
      */
-    public Mode getMode() {
-        Mode rmode = null;
+    public Status getStatus() {
+        Status results = null;
         try {
-            // whether play, pause, stop
-            String params = setParameters(this.playerId, Arrays.asList("mode", "?"));
-            JsonNode jsonNode = request(params);
-            JSONObject obj = jsonNode.getObject();
-            JSONObject result = obj.optJSONObject("result");
-            String mode = result.optString("_mode", StringUtils.EMPTY);
-            rmode = Mode.fromLabel(mode);
-
-            // whether muted
-            Boolean muted = mute(null);
-            rmode = (muted) ? Mode.MUTE : rmode;
+            List<Object> list = new ArrayList<>(Arrays.asList("status", "-", 1, "tags:cgABbehldiqtyrSuoKLNJ"));
+            String params = setParameters(this.playerId, list);
+            results = request(Status.class, params);
         } catch (UnirestException e) {
             logger.error(e);
         }
-        return rmode;
+        return results;
     }
 
     /**
