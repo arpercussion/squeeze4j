@@ -48,6 +48,27 @@ public class SqueezePlayer extends SlimRequest {
     }
 
     /**
+     * Jump to a particular position in a song by specifying a number of seconds to seek to
+     *
+     * @param seconds position in song
+     * @return if null then get time, otherwise set time
+     */
+    public Double seek(Double seconds) {
+        Double time = null;
+        try {
+            String arg = (seconds == null) ? "?" : Double.toString(seconds);
+            String params = setParameters(this.playerId, Arrays.asList("time", arg));
+            JsonNode jsonNode = request(params);
+            JSONObject obj = jsonNode.getObject();
+            JSONObject result = obj.optJSONObject("result");
+            time = result.optDouble("_time", 0.0);
+        } catch (UnirestException e) {
+            logger.error(e);
+        }
+        return time;
+    }
+
+    /**
      * Get path of currently playing song
      *
      * @return the path to the song
@@ -109,10 +130,11 @@ public class SqueezePlayer extends SlimRequest {
 
     /**
      * Set the player mode
-     * @param mode play, pause, mute, ...
+     *
+     * @param mode  play, pause, mute, ...
      * @param state null, 0, 1
      */
-	public void mode(PlayerMode mode, Integer state) {
+    public void mode(PlayerMode mode, Integer state) {
         List<Object> _mode = playerModeToModeList(mode);
         if (state != null) {
             // some modes like repeat and shuffle can be 0,1,2 for now only support 0,1
