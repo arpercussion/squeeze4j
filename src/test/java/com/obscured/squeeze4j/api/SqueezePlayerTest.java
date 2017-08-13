@@ -1,5 +1,6 @@
 package com.obscured.squeeze4j.api;
 
+import com.obscured.squeeze4j.enums.PlayerMode;
 import com.obscured.squeeze4j.models.Status;
 import org.junit.*;
 
@@ -45,7 +46,8 @@ public class SqueezePlayerTest {
     }
 
     @Test
-    public void mute() throws Exception {
+    public void mode() throws Exception {
+        player.mode(PlayerMode.PAUSE, 0);
     }
 
     @Test

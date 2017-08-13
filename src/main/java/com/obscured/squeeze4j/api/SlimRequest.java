@@ -17,9 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 abstract class SlimRequest {
@@ -130,19 +128,19 @@ abstract class SlimRequest {
     List<Object> playerModeToModeList(PlayerMode mode) {
         List<Object> _mode = null;
         if (Stream.of(PlayerMode.PAUSE, PlayerMode.RESUME).anyMatch(m -> m == mode)) {
-            _mode = Arrays.asList("pause");
+            _mode = new ArrayList<>(Collections.singletonList("pause"));
         } else if (Stream.of(PlayerMode.PLAY, PlayerMode.CONTINUE, PlayerMode.KEEP_GOING).anyMatch(m -> m == mode)) {
-            _mode = Arrays.asList("play");
+            _mode = new ArrayList<>(Collections.singletonList("play"));
         } else if (Stream.of(PlayerMode.MUTE, PlayerMode.UNMUTE).anyMatch(m -> m == mode)) {
-            _mode = Arrays.asList("mixer", "muting");
+            _mode = new ArrayList<>(Arrays.asList("mixer", "muting"));
         } else if (Stream.of(PlayerMode.REPEAT, PlayerMode.REPEAT_ON, PlayerMode.REPEAT_OFF).anyMatch(m -> m == mode)) {
-            _mode = Arrays.asList("playlist", "repeat");
+            _mode = new ArrayList<>(Arrays.asList("playlist", "repeat"));
         } else if (Stream.of(PlayerMode.SHUFFLE, PlayerMode.SHUFFLE_ON, PlayerMode.SHUFFLE_OFF,
                 PlayerMode.TURN_ON_SHUFFLE, PlayerMode.TURN_OFF_SHUFFLE, PlayerMode.STOP_SHUFFLING,
                 PlayerMode.SHUFFLE_THE_MUSIC).anyMatch(m -> m == mode)) {
-            _mode = Arrays.asList("playlist", "shuffle");
+            _mode = new ArrayList<>(Arrays.asList("playlist", "shuffle"));
         } else if (PlayerMode.STOP == mode) {
-            _mode = Arrays.asList("stop");
+            _mode = new ArrayList<>(Arrays.asList("stop"));
         }
         return _mode;
     }

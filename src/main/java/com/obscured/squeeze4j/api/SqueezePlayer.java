@@ -135,17 +135,21 @@ public class SqueezePlayer extends SlimRequest {
      * @param state null, 0, 1
      */
     public void mode(PlayerMode mode, Integer state) {
-        List<Object> _mode = playerModeToModeList(mode);
-        if (state != null) {
-            // some modes like repeat and shuffle can be 0,1,2 for now only support 0,1
-            state = (state >= 1) ? 1 : 0;
-            _mode.add(state);
-        }
-        String params = setParameters(this.playerId, _mode);
-        try {
-            request(params);
-        } catch (UnirestException e) {
-            logger.error(e);
+        List<Object> modeList = playerModeToModeList(mode);
+        if (modeList != null) {
+            if (state != null) {
+                // some modes like repeat and shuffle can be 0,1,2 for now only support 0,1
+                state = (state >= 1) ? 1 : 0;
+                modeList.add(state);
+            }
+            String params = setParameters(this.playerId, modeList);
+            try {
+                request(params);
+            } catch (UnirestException e) {
+                logger.error(e);
+            }
+        } else {
+            logger.error("Unknown PlaylistMode given");
         }
     }
 
