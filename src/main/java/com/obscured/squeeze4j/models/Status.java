@@ -33,7 +33,11 @@ import java.util.List;
         "playlist_timestamp",
         "playlist_tracks",
         "digital_volume_control",
-        "playlist_loop"
+        "playlist_loop",
+        "playlist_name",
+        "playlist_id",
+        "playlist_modified",
+        "waitingToPlay"
 })
 public class Status {
 
@@ -69,11 +73,27 @@ public class Status {
     @JsonDeserialize(using = IntegerToBoolean.class)
     private Boolean canSeek;
 
+    @JsonProperty("waitingToPlay")
+    @JsonSerialize(using = BooleanToInteger.class)
+    @JsonDeserialize(using = IntegerToBoolean.class)
+    private Boolean waitingToPlay;
+
     @JsonProperty("mixer volume")
     private Integer mixerVolume;
 
     @JsonProperty("playlist repeat")
     private Integer playlistRepeat;
+
+    @JsonProperty("playlist_name")
+    private String playlistName;
+
+    @JsonProperty("playlist_id")
+    private Integer playlistId;
+
+    @JsonProperty("playlist_modified")
+    @JsonSerialize(using = BooleanToInteger.class)
+    @JsonDeserialize(using = IntegerToBoolean.class)
+    private Boolean playlistModified;
 
     @JsonProperty("playlist shuffle")
     private Integer playlistShuffle;
@@ -98,6 +118,22 @@ public class Status {
 
     @JsonProperty("playlist_loop")
     private List<StatusPlaylists> playlistLoop = null;
+
+    public Boolean getPlaylistModified() {
+        return playlistModified;
+    }
+
+    public void setPlaylistModified(Boolean playlistModified) {
+        this.playlistModified = playlistModified;
+    }
+
+    public Boolean getWaitingToPlay() {
+        return waitingToPlay;
+    }
+
+    public void setWaitingToPlay(Boolean waitingToPlay) {
+        this.waitingToPlay = waitingToPlay;
+    }
 
     public String getPlayerName() {
         return playerName;
@@ -207,6 +243,22 @@ public class Status {
         return playlistMode;
     }
 
+    public String getPlaylistName() {
+        return playlistName;
+    }
+
+    public void setPlaylistName(String playlistName) {
+        this.playlistName = playlistName;
+    }
+
+    public Integer getPlaylistId() {
+        return playlistId;
+    }
+
+    public void setPlaylistId(Integer playlistId) {
+        this.playlistId = playlistId;
+    }
+
     public void setPlaylistMode(String playlistMode) {
         this.playlistMode = playlistMode;
     }
@@ -261,7 +313,7 @@ public class Status {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(playerName).append(playerConnected).append(playerIp).append(power).append(signalstrength).append(mode).append(time).append(rate).append(duration).append(canSeek).append(mixerVolume).append(playlistRepeat).append(playlistShuffle).append(playlistMode).append(seqNo).append(playlistCurIndex).append(playlistTimestamp).append(playlistTracks).append(digitalVolumeControl).append(playlistLoop).toHashCode();
+        return new HashCodeBuilder().append(playerName).append(waitingToPlay).append(playlistModified).append(playerConnected).append(playerIp).append(playlistName).append(playlistId).append(power).append(signalstrength).append(mode).append(time).append(rate).append(duration).append(canSeek).append(mixerVolume).append(playlistRepeat).append(playlistShuffle).append(playlistMode).append(seqNo).append(playlistCurIndex).append(playlistTimestamp).append(playlistTracks).append(digitalVolumeControl).append(playlistLoop).toHashCode();
     }
 
     @Override
@@ -273,7 +325,7 @@ public class Status {
             return false;
         }
         Status rhs = ((Status) other);
-        return new EqualsBuilder().append(playerName, rhs.playerName).append(playerConnected, rhs.playerConnected).append(playerIp, rhs.playerIp).append(power, rhs.power).append(signalstrength, rhs.signalstrength).append(mode, rhs.mode).append(time, rhs.time).append(rate, rhs.rate).append(duration, rhs.duration).append(canSeek, rhs.canSeek).append(mixerVolume, rhs.mixerVolume).append(playlistRepeat, rhs.playlistRepeat).append(playlistShuffle, rhs.playlistShuffle).append(playlistMode, rhs.playlistMode).append(seqNo, rhs.seqNo).append(playlistCurIndex, rhs.playlistCurIndex).append(playlistTimestamp, rhs.playlistTimestamp).append(playlistTracks, rhs.playlistTracks).append(digitalVolumeControl, rhs.digitalVolumeControl).append(playlistLoop, rhs.playlistLoop).isEquals();
+        return new EqualsBuilder().append(playerName, rhs.playerName).append(waitingToPlay, rhs.waitingToPlay).append(playlistModified, rhs.playlistModified).append(playerConnected, rhs.playerConnected).append(playerIp, rhs.playerIp).append(playlistId, rhs.playlistId).append(playlistName, rhs.playlistName).append(power, rhs.power).append(signalstrength, rhs.signalstrength).append(mode, rhs.mode).append(time, rhs.time).append(rate, rhs.rate).append(duration, rhs.duration).append(canSeek, rhs.canSeek).append(mixerVolume, rhs.mixerVolume).append(playlistRepeat, rhs.playlistRepeat).append(playlistShuffle, rhs.playlistShuffle).append(playlistMode, rhs.playlistMode).append(seqNo, rhs.seqNo).append(playlistCurIndex, rhs.playlistCurIndex).append(playlistTimestamp, rhs.playlistTimestamp).append(playlistTracks, rhs.playlistTracks).append(digitalVolumeControl, rhs.digitalVolumeControl).append(playlistLoop, rhs.playlistLoop).isEquals();
     }
 
 }

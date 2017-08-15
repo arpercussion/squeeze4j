@@ -1,6 +1,7 @@
 package com.obscured.squeeze4j.api;
 
 import com.obscured.squeeze4j.enums.PlayerMode;
+import com.obscured.squeeze4j.models.SongInfo;
 import com.obscured.squeeze4j.models.Status;
 import org.junit.*;
 
@@ -8,6 +9,8 @@ import org.junit.*;
 public class SqueezePlayerTest {
 
     private static SqueezePlayer player = null;
+    private static String path = "file:///mnt/usb/Robert%20Davies/Afterlight/Robert%20Davies%20-%20Afterlight%20-%2001%20-%20Meadow%20Glimmer.mp3";
+    private static Integer playlistId = 48587;
 
     @BeforeClass
     public static void beforeClass() {
@@ -21,79 +24,131 @@ public class SqueezePlayerTest {
 
     @Test
     public void getStatus() throws Exception {
-		Status status = player.getStatus();
+        Status status = player.getStatus();
 
-		Assert.assertNotNull("Status is null", status);
-        Assert.assertNotNull("Status volume is null", status.getMixerVolume());
+        Assert.assertNotNull("getStatus is null", status);
+        Assert.assertNotNull("getStatus volume is null", status.getMixerVolume());
+    }
 
-//        String json = "{\"player_name\":\"akrmusic\",\"player_connected\":1,\"player_ip\":\"192.168.1.13:37916\",\"power\":1,\"signalstrength\":0,\"mode\":\"stop\",\"mixer volume\":60,\"playlist repeat\":1,\"playlist shuffle\":1,\"playlist mode\":\"off\",\"seq_no\":0,\"playlist_cur_index\":0,\"playlist_timestamp\":1502627314.12569,\"playlist_tracks\":1,\"digital_volume_control\":1,\"playlist_loop\":[{\"playlist index\":0,\"id\":45808,\"title\":\"One\",\"coverid\":\"a31606fb\",\"genre\":\"Rock\",\"artist\":\"Metallica\",\"band\":\"Metallica\",\"composer\":\"Lars Ulrich\",\"album_id\":\"4497\",\"album\":\"...And Justice for All\",\"duration\":\"446.693\",\"tracknum\":\"4\",\"year\":\"0\",\"bitrate\":\"319kbps CBR\",\"artist_ids\":\"4945\",\"band_ids\":\"4945\",\"composer_ids\":\"4350\",\"url\":\"file:///mnt/usb/Metallica/And%20Justice%20for%20All/Metallica%20-%20...And%20Justice%20for%20All%20-%20One.mp3\",\"type\":\"mp3\",\"artwork_track_id\":\"a31606fb\"}]}";
+    @Test
+    public void seek() throws Exception {
+        Double before = player.seek(null);
+        player.seek(10.0);
+        Double after = player.seek(null);
 
-//        final ObjectMapper mapper = new ObjectMapper();
-//        Status status = mapper.readValue(json, Status.class);
-//        Assert.assertNotNull(status);
+        Assert.assertTrue("seek not updated", after > (before + 9.0));
     }
 
     @Test
     public void getPath() throws Exception {
+        String path = player.getPath();
+
+        Assert.assertNotNull("getPath is null", path);
     }
 
     @Test
     public void getSongInfo() throws Exception {
-    }
+        player.play(path, null, null, null);
+        SongInfo songInfo = player.getSongInfo(path);
 
-    @Test
-    public void pause() throws Exception {
+        Assert.assertNotNull("getSongInfo is null", songInfo);
     }
 
     @Test
     public void mode() throws Exception {
-        player.mode(PlayerMode.PAUSE, 0);
+        player.mode(PlayerMode.MUTE, null);
+        Integer volume = player.volume(null);
+
+        Assert.assertTrue("mode not set", volume < 0);
+    }
+
+    @Test
+    public void pause() throws Exception {
+        player.play(path, null, null, null);
+        Thread.sleep(1000);
+        player.pause(1);
+        Thread.sleep(1000);
+        Status status = player.getStatus();
+
+        Assert.assertTrue("pause not applied", status.getMode().equalsIgnoreCase("pause"));
+    }
+
+    @Test
+    public void mute() throws Exception {
+        player.mute(1);
+        Integer volume = player.volume(null);
+        Assert.assertTrue("pause not applied", volume < 0);
     }
 
     @Test
     public void stop() throws Exception {
+        player.stop();
+        Thread.sleep(1000);
+        Status status = player.getStatus();
+
+        Assert.assertTrue("stop not applied", status.getMode().equalsIgnoreCase("stop"));
     }
 
     @Test
     public void power() throws Exception {
+        Boolean state = player.power(null);
+        Assert.assertNotNull("power has value", state);
+
+        player.power(state ? 0 : 1);
+
+        Boolean newState = player.power(null);
+        Assert.assertNotEquals("power not set", state, newState);
+
+        player.power(1);
     }
 
     @Test
     public void previous() throws Exception {
+        player.playPlaylist(playlistId.toString());
+        Thread.sleep(1000);
+        Status status = player.getStatus();
+        player.previous();
+        Thread.sleep(1000);
+        Status newStatus = player.getStatus();
+        Assert.assertTrue("previous", newStatus.getPlaylistCurIndex().compareTo(status.getPlaylistCurIndex()) > 0);
     }
 
     @Test
     public void next() throws Exception {
+        player.playPlaylist(playlistId.toString());
+        Thread.sleep(1000);
+        Status status = player.getStatus();
+        player.next();
+        Thread.sleep(1000);
+        Status newStatus = player.getStatus();
+        Assert.assertTrue("next", newStatus.getPlaylistCurIndex().compareTo(status.getPlaylistCurIndex()) > 0);
     }
 
     @Test
     public void volume() throws Exception {
-        int volume = player.volume(null);
-        Assert.assertNotNull(volume);
+        Integer i = 42;
+        Integer volume = player.volume(null);
+        Assert.assertNotNull("volume is null", volume);
 
-        Integer newVolume = player.volume(42);
-        Assert.assertNull(newVolume);
+        player.volume(i);
+        Assert.assertEquals("volume not set", i, volume);
     }
 
     @Test
     public void getCurrentlyPlaying() throws Exception {
+        SongInfo current = player.getCurrentlyPlaying();
+        Assert.assertNotNull("getCurrentlyPlaying", current);
     }
 
     @Test
     public void play() throws Exception {
-        String url = null;
-        String genre = null;
-        String artist = "Robert Davies";
-        String album = null;
-        player.play(url, genre, artist, album);
-    }
-
-    @Test
-    public void play1() throws Exception {
+        player.play(null, null, "Robert Davies", null);
     }
 
     @Test
     public void playPlaylist() throws Exception {
+        player.playPlaylist(playlistId.toString());
+        Status status = player.getStatus();
+        Assert.assertEquals("playPlaylist not set", status.getPlaylistId(), playlistId);
     }
-
 }

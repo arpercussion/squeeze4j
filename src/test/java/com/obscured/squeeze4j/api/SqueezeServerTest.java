@@ -3,6 +3,7 @@ package com.obscured.squeeze4j.api;
 import com.obscured.squeeze4j.models.*;
 import org.junit.*;
 
+import java.io.InputStream;
 import java.util.Map;
 
 @Ignore
@@ -87,16 +88,16 @@ public class SqueezeServerTest {
     public void getSongsByArtistId() throws Exception {
         Tracks songs = server.getTracksByAlbumId(3911, null, null);
 
-        Assert.assertNotNull("Songs is null", songs);
-        Assert.assertNotNull("Songs no count", songs.getCount());
+        Assert.assertNotNull("getSongsByArtistId is null", songs);
+        Assert.assertNotNull("getSongsByArtistId no count", songs.getCount());
     }
 
     @Test
     public void getSongsByGenreId() throws Exception {
         Tracks songs = server.getTracksByAlbumId(397, null, null);
 
-        Assert.assertNotNull("Songs is null", songs);
-        Assert.assertNotNull("Songs no count", songs.getCount());
+        Assert.assertNotNull("getSongsByGenreId is null", songs);
+        Assert.assertNotNull("getSongsByGenreId no count", songs.getCount());
     }
 
     @Test
@@ -111,7 +112,32 @@ public class SqueezeServerTest {
     public void search() throws Exception {
         Search search = server.search("dream", null, null);
 
-        Assert.assertNotNull("Search is null", search);
-        Assert.assertNotNull("Search no results", search.getAlbumsCount());
+        Assert.assertNotNull("search is null", search);
+        Assert.assertNotNull("search no results", search.getAlbumsCount());
+    }
+
+    @Test
+    public void getTracksByArtistId() {
+        Tracks tracks = server.getTracksByArtistId(4738, null, null);
+
+        Assert.assertNotNull("getTracksByArtistId is null", tracks);
+        Assert.assertNotNull("getTracksByArtistId no results", tracks.getCount());
+
+    }
+
+    @Test
+    public void getTracksByGenreId() {
+        Tracks tracks = server.getTracksByGenreId(502, null, null);
+
+        Assert.assertNotNull("getTracksByGenreId is null", tracks);
+        Assert.assertNotNull("getTracksByGenreId no results", tracks.getCount());
+
+    }
+
+    @Test
+    public void cover() throws Exception {
+        InputStream result = server.getCoverImage("/music/48692/cover.jpg");
+
+        Assert.assertNotNull("cover is null", result);
     }
 }

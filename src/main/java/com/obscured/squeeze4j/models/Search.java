@@ -14,6 +14,7 @@ import java.util.List;
         "tracks_loop",
         "tracks_count",
         "contributors_count",
+        "albums_loop",
         "contributors_loop",
         "albums_count"
 })
@@ -23,13 +24,16 @@ public class Search {
     private Integer count;
 
     @JsonProperty("tracks_loop")
-    private List<SearchTracks> tracksLoop = null;
+    private List<SearchTracks> tracks = null;
 
     @JsonProperty("tracks_count")
     private Integer tracksCount;
 
     @JsonProperty("contributors_count")
     private Integer contributorsCount;
+
+    @JsonProperty("albums_loop")
+    private List<SearchAlbums> albums = null;
 
     @JsonProperty("contributors_loop")
     private List<SearchContributors> contributors = null;
@@ -45,12 +49,12 @@ public class Search {
         this.count = count;
     }
 
-    public List<SearchTracks> getTracksLoop() {
-        return tracksLoop;
+    public List<SearchTracks> getTracks() {
+        return tracks;
     }
 
-    public void setTracksLoop(List<SearchTracks> tracksLoop) {
-        this.tracksLoop = tracksLoop;
+    public void setTracks(List<SearchTracks> tracks) {
+        this.tracks = tracks;
     }
 
     public Integer getTracksCount() {
@@ -67,6 +71,14 @@ public class Search {
 
     public void setContributorsCount(Integer contributorsCount) {
         this.contributorsCount = contributorsCount;
+    }
+
+    public List<SearchAlbums> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<SearchAlbums> albums) {
+        this.albums = albums;
     }
 
     public List<SearchContributors> getContributors() {
@@ -87,7 +99,7 @@ public class Search {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(count).append(tracksLoop).append(tracksCount).append(contributorsCount).append(contributors).append(albumsCount).toHashCode();
+        return new HashCodeBuilder().append(count).append(tracks).append(tracksCount).append(contributorsCount).append(albums).append(contributors).append(albumsCount).toHashCode();
     }
 
     @Override
@@ -99,7 +111,7 @@ public class Search {
             return false;
         }
         Search rhs = ((Search) other);
-        return new EqualsBuilder().append(count, rhs.count).append(tracksLoop, rhs.tracksLoop).append(tracksCount, rhs.tracksCount).append(contributorsCount, rhs.contributorsCount).append(contributors, rhs.contributors).append(albumsCount, rhs.albumsCount).isEquals();
+        return new EqualsBuilder().append(count, rhs.count).append(tracks, rhs.tracks).append(tracksCount, rhs.tracksCount).append(contributorsCount, rhs.contributorsCount).append(albums, rhs.albums).append(contributors, rhs.contributors).append(albumsCount, rhs.albumsCount).isEquals();
     }
 
 }
