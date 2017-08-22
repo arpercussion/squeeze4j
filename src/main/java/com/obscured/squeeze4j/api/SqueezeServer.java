@@ -280,7 +280,7 @@ public class SqueezeServer extends SlimRequest {
      */
     public SongInfo getSongInfo(String trackIdOrUrl) {
         List<Object> args = new ArrayList<>();
-        args.addAll(Arrays.asList("songinfo", "0", "100", "tags:algc"));
+        args.addAll(Arrays.asList("songinfo", "0", "100", "tags:algcu"));
         if (trackIdOrUrl.contains("file://")) {
             args.add("url:" + trackIdOrUrl);
         } else {
