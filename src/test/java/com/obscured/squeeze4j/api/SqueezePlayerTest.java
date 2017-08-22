@@ -6,15 +6,13 @@ import com.obscured.squeeze4j.models.Status;
 import org.junit.*;
 
 @Ignore
-public class SqueezePlayerTest {
+public class SqueezePlayerTest extends BaseTest {
 
     private static SqueezePlayer player = null;
-    private static String path = "file:///mnt/usb/Robert%20Davies/Afterlight/Robert%20Davies%20-%20Afterlight%20-%2001%20-%20Meadow%20Glimmer.mp3";
-    private static Integer playlistId = 48587;
 
     @BeforeClass
     public static void beforeClass() {
-        player = new SqueezePlayer("74:da:38:3b:4f:8c");
+        player = new SqueezePlayer(PLAYER_ID);
     }
 
     @AfterClass
@@ -47,14 +45,6 @@ public class SqueezePlayerTest {
     }
 
     @Test
-    public void getSongInfo() throws Exception {
-        player.play(path, null, null, null);
-        SongInfo songInfo = player.getSongInfo(path);
-
-        Assert.assertNotNull("getSongInfo is null", songInfo);
-    }
-
-    @Test
     public void mode() throws Exception {
         player.mode(PlayerMode.MUTE, null);
         Integer volume = player.volume(null);
@@ -64,7 +54,7 @@ public class SqueezePlayerTest {
 
     @Test
     public void pause() throws Exception {
-        player.play(path, null, null, null);
+        player.play(PATH, null, null, null);
         Thread.sleep(1000);
         player.pause(1);
         Thread.sleep(1000);
@@ -104,7 +94,7 @@ public class SqueezePlayerTest {
 
     @Test
     public void previous() throws Exception {
-        player.playPlaylist(playlistId.toString());
+        player.playPlaylist(PLAYLIST_ID.toString());
         Thread.sleep(1000);
         Status status = player.getStatus();
         player.previous();
@@ -115,7 +105,7 @@ public class SqueezePlayerTest {
 
     @Test
     public void next() throws Exception {
-        player.playPlaylist(playlistId.toString());
+        player.playPlaylist(PLAYLIST_ID.toString());
         Thread.sleep(1000);
         Status status = player.getStatus();
         player.next();
@@ -147,8 +137,8 @@ public class SqueezePlayerTest {
 
     @Test
     public void playPlaylist() throws Exception {
-        player.playPlaylist(playlistId.toString());
+        player.playPlaylist(PLAYLIST_ID.toString());
         Status status = player.getStatus();
-        Assert.assertEquals("playPlaylist not set", status.getPlaylistId(), playlistId);
+        Assert.assertEquals("playPlaylist not set", status.getPlaylistId(), PLAYLIST_ID);
     }
 }

@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 @Ignore
-public class SqueezeServerTest {
+public class SqueezeServerTest extends BaseTest {
     private static SqueezeServer server;
 
     @BeforeClass
@@ -139,5 +139,12 @@ public class SqueezeServerTest {
         InputStream result = server.getCoverImage("/music/48692/cover.jpg");
 
         Assert.assertNotNull("cover is null", result);
+    }
+
+    @Test
+    public void getSongInfo() throws Exception {
+        SongInfo songInfo = server.getSongInfo(PATH);
+
+        Assert.assertNotNull("getSongInfo is null", songInfo);
     }
 }

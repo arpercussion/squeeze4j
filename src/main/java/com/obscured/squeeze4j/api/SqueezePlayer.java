@@ -1,6 +1,5 @@
 package com.obscured.squeeze4j.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.obscured.squeeze4j.enums.PlayerMode;
@@ -9,7 +8,6 @@ import com.obscured.squeeze4j.models.Status;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -85,47 +83,6 @@ public class SqueezePlayer extends SlimRequest {
             logger.error(e);
         }
         return rpath;
-    }
-
-    /**
-     * Get the song info given a path or track id
-     *
-     * @param trackIdOrUrl the path or the track id
-     * @return SongInfo object
-     */
-    public SongInfo getSongInfo(String trackIdOrUrl) {
-        List<Object> args = new ArrayList<>();
-        args.addAll(Arrays.asList("songinfo", "0", "100", "tags:algc"));
-        if (trackIdOrUrl.contains("file://")) {
-            args.add("url:" + trackIdOrUrl);
-        } else {
-            args.add("track_id:" + trackIdOrUrl);
-        }
-
-        SongInfo songInfo = null;
-        JSONObject jobj = new JSONObject();
-        try {
-            String params = setParameters(null, args);
-            JsonNode jsonNode = request(params);
-            JSONObject root = jsonNode.getObject();
-            JSONObject result = root.optJSONObject("result");
-            JSONArray songInfoLoop = result.optJSONArray("songinfo_loop");
-            int length = songInfoLoop.length();
-            for (int x = 0; x < length; x += 1) {
-                JSONObject obj = songInfoLoop.optJSONObject(x);
-                Iterator<String> it = obj.keys();
-                while (it.hasNext()) {
-                    String key = it.next();
-                    jobj.put(key, obj.opt(key));
-                }
-            }
-            ObjectMapper mapper = new ObjectMapper();
-            songInfo = mapper.readValue(jobj.toString(), SongInfo.class);
-        } catch (Exception e) {
-            logger.error(e);
-        }
-
-        return songInfo;
     }
 
     /**
@@ -281,7 +238,8 @@ public class SqueezePlayer extends SlimRequest {
         SongInfo songInfo = null;
         String path = getPath();
         if (StringUtils.isNotEmpty(path)) {
-            songInfo = getSongInfo(path);
+            SqueezeServer squeezeServer = new SqueezeServer();
+            songInfo = squeezeServer.getSongInfo(path);
             if (songInfo != null) {
                 if (StringUtils.isEmpty(songInfo.getCoverId())) {
                     songInfo.setCoverId("unknown");
