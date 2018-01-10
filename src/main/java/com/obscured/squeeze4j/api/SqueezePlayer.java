@@ -49,9 +49,9 @@ public class SqueezePlayer extends SlimRequest {
     }
 
     /**
-     * Jump to a particular position in a song by specifying a number of seconds to seek to
+     * Jump to a particular position in a track by specifying a number of seconds to seek to
      *
-     * @param seconds position in song
+     * @param seconds position in track
      * @return if null then get time, otherwise set time
      */
     public Double seek(Double seconds) {
@@ -70,9 +70,9 @@ public class SqueezePlayer extends SlimRequest {
     }
 
     /**
-     * Get path of currently playing song
+     * Get path of currently playing track
      *
-     * @return the path to the song
+     * @return the path to the track
      */
     public String getPath() {
         String rpath = null;
@@ -233,24 +233,24 @@ public class SqueezePlayer extends SlimRequest {
     }
 
     /**
-     * Get the song info of the currently playing song including the cover id url
+     * Get the track info of the currently playing track including the cover id url
      *
      * @return SongInfo
      */
     public SongInfo getCurrentlyPlaying() {
-        SongInfo songInfo = null;
+        SongInfo trackInfo = null;
         String path = getPath();
         if (StringUtils.isNotEmpty(path)) {
             SqueezeServer squeezeServer = new SqueezeServer();
-            songInfo = squeezeServer.getSongInfo(path);
-            if (songInfo != null) {
-                if (StringUtils.isEmpty(songInfo.getCoverId())) {
-                    songInfo.setCoverId("unknown");
+            trackInfo = squeezeServer.getTrackInfo(path);
+            if (trackInfo != null) {
+                if (StringUtils.isEmpty(trackInfo.getCoverId())) {
+                    trackInfo.setCoverId("unknown");
                 }
-                songInfo.setCoverUrl("/music/" + songInfo.getCoverId() + "/cover.jpg");
+                trackInfo.setCoverUrl("/music/" + trackInfo.getCoverId() + "/cover.jpg");
             }
         }
-        return songInfo;
+        return trackInfo;
     }
 
     public void play() {
@@ -263,7 +263,7 @@ public class SqueezePlayer extends SlimRequest {
     }
 
     /**
-     * Play a song, or play songs by artist, album or genre
+     * Play a track, or play tracks by artist, album or genre
      *
      * @param url    path to a track
      * @param genre  the genre name

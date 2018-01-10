@@ -90,29 +90,29 @@ public class SqueezeServer extends SlimRequest {
     }
 
     /**
-     * Get songs matching song title, or all. supports paging
+     * Get tracks matching track title, or all. supports paging
      *
-     * @param song search by song or all if empty
+     * @param track search by track or all if empty
      * @param skip start at index
      * @param take page size
      * @return Title object
      */
-    public Tracks getTracks(String song, Integer skip, Integer take) {
+    public Tracks getTracks(String track, Integer skip, Integer take) {
         String s = (skip != null && skip >= 0) ? skip.toString() : "_";
         String t = (take != null && take >= 1) ? take.toString() : "_";
         List<Object> list = new ArrayList<>(Arrays.asList("songs", s, t, "tags:seuSp"));
-        if (StringUtils.isNotEmpty(song)) {
-            list.add("search:" + song);
+        if (StringUtils.isNotEmpty(track)) {
+            list.add("search:" + track);
         }
         String params = setParameters(null, list);
 
-        Tracks songs = null;
+        Tracks tracks = null;
         try {
-            songs = request(Tracks.class, params);
+            tracks = request(Tracks.class, params);
         } catch (UnirestException e) {
             logger.error(e);
         }
-        return songs;
+        return tracks;
 
     }
 
@@ -193,7 +193,7 @@ public class SqueezeServer extends SlimRequest {
     }
 
     /**
-     * Get songs matching album id. supports paging
+     * Get tracks matching album id. supports paging
      *
      * @param albumId filter by album id
      * @param skip    start at index
@@ -215,7 +215,7 @@ public class SqueezeServer extends SlimRequest {
     }
 
     /**
-     * Get songs matching artists id. supports paging
+     * Get tracks matching artists id. supports paging
      *
      * @param artistId search by artist id
      * @param skip     start at index
@@ -237,7 +237,7 @@ public class SqueezeServer extends SlimRequest {
     }
 
     /**
-     * Get songs matching genre id. supports paging
+     * Get tracks matching genre id. supports paging
      *
      * @param genreId filter by genre id
      * @param skip    start at index
@@ -273,12 +273,12 @@ public class SqueezeServer extends SlimRequest {
     }
 
     /**
-     * Get the song info given a path or track id
+     * Get the track info given a path or track id
      *
      * @param trackIdOrUrl the path or the track id
      * @return SongInfo object
      */
-    public SongInfo getSongInfo(String trackIdOrUrl) {
+    public SongInfo getTrackInfo(String trackIdOrUrl) {
         List<Object> args = new ArrayList<>();
         args.addAll(Arrays.asList("songinfo", "0", "100", "tags:aAsSelgGpPcdtyuJ"));
         if (trackIdOrUrl.contains("file://")) {
@@ -287,17 +287,17 @@ public class SqueezeServer extends SlimRequest {
             args.add("track_id:" + trackIdOrUrl);
         }
 
-        SongInfo songInfo = null;
+        SongInfo trackInfo = null;
         JSONObject jobj = new JSONObject();
         try {
             String params = setParameters(null, args);
             JsonNode jsonNode = request(params);
             JSONObject root = jsonNode.getObject();
             JSONObject result = root.optJSONObject("result");
-            JSONArray songInfoLoop = result.optJSONArray("songinfo_loop");
-            int length = songInfoLoop.length();
+            JSONArray trackInfoLoop = result.optJSONArray("songinfo_loop");
+            int length = trackInfoLoop.length();
             for (int x = 0; x < length; x += 1) {
-                JSONObject obj = songInfoLoop.optJSONObject(x);
+                JSONObject obj = trackInfoLoop.optJSONObject(x);
                 Iterator<String> it = obj.keys();
                 while (it.hasNext()) {
                     String key = it.next();
@@ -305,16 +305,16 @@ public class SqueezeServer extends SlimRequest {
                 }
             }
             ObjectMapper mapper = new ObjectMapper();
-            songInfo = mapper.readValue(jobj.toString(), SongInfo.class);
+            trackInfo = mapper.readValue(jobj.toString(), SongInfo.class);
         } catch (Exception e) {
             logger.error(e);
         }
 
-        return songInfo;
+        return trackInfo;
     }
 
     /**
-     * Get totals for artists, album, songs, and genres
+     * Get totals for artists, album, tracks, and genres
      *
      * @return Map of type=>count
      */

@@ -45,11 +45,11 @@ public class SqueezeServerTest extends BaseTest {
     }
 
     @Test
-    public void getSongs() throws Exception {
-        Tracks songs = server.getTracks("one", null, null);
+    public void getTracks() throws Exception {
+        Tracks tracks = server.getTracks("one", null, null);
 
-        Assert.assertNotNull("Songs is null", songs);
-        Assert.assertNotNull("Songs no count", songs.getCount());
+        Assert.assertNotNull("Tracks is null", tracks);
+        Assert.assertNotNull("Tracks no count", tracks.getCount());
     }
 
     @Test
@@ -77,28 +77,13 @@ public class SqueezeServerTest extends BaseTest {
     }
 
     @Test
-    public void getSongsByAlbumId() throws Exception {
-        Tracks songs = server.getTracksByAlbumId(3489, null, null);
+    public void getTracksByAlbumId() throws Exception {
+        Tracks tracks = server.getTracksByAlbumId(3489, null, null);
 
-        Assert.assertNotNull("Songs is null", songs);
-        Assert.assertNotNull("Songs no count", songs.getCount());
+        Assert.assertNotNull("Tracks is null", tracks);
+        Assert.assertNotNull("Tracks no count", tracks.getCount());
     }
 
-    @Test
-    public void getSongsByArtistId() throws Exception {
-        Tracks songs = server.getTracksByAlbumId(3911, null, null);
-
-        Assert.assertNotNull("getSongsByArtistId is null", songs);
-        Assert.assertNotNull("getSongsByArtistId no count", songs.getCount());
-    }
-
-    @Test
-    public void getSongsByGenreId() throws Exception {
-        Tracks songs = server.getTracksByAlbumId(397, null, null);
-
-        Assert.assertNotNull("getSongsByGenreId is null", songs);
-        Assert.assertNotNull("getSongsByGenreId no count", songs.getCount());
-    }
 
     @Test
     public void getTotals() throws Exception {
@@ -142,9 +127,9 @@ public class SqueezeServerTest extends BaseTest {
     }
 
     @Test
-    public void getSongInfo() throws Exception {
-        SongInfo songInfo = server.getSongInfo(PATH);
+    public void getTrackInfo() throws Exception {
+        SongInfo trackInfo = server.getTrackInfo(PATH);
 
-        Assert.assertNotNull("getSongInfo is null", songInfo);
+        Assert.assertNotNull("getTrackInfo is null", trackInfo);
     }
 }
