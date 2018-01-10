@@ -7,7 +7,7 @@ public enum PlayerDirection {
     NEXT(0, "Next"),
     PREVIOUS(1, "Previous"),
     SKIP(2, "Skip"),
-    RESTART(3, "Re-Start"),
+    RESTART(3, "Restart"),
     START_OVER(4, "Start over"),
     START_AGAIN(5, "Start again");
 

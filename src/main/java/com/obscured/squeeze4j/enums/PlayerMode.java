@@ -53,15 +53,15 @@ public enum PlayerMode {
     }
 
     public static PlayerMode fromId(Integer id) {
-        PlayerMode playerDirection = null;
+        PlayerMode playerMode = null;
         if (id != null) {
             for (PlayerMode mode : PlayerMode.values()) {
                 if (mode.id == id) {
-                    playerDirection = mode;
+                    playerMode = mode;
                     break;
                 }
             }
         }
-        return playerDirection;
+        return playerMode;
     }
 }

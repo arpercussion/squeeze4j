@@ -11,20 +11,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StringToList extends JsonDeserializer<List<Integer>> {
+public class StringToListOfString extends JsonDeserializer<List<String>> {
 	@Override
-	public List<Integer> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+	public List<String> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
 			throws IOException {
-		List<Integer> result = null;
+		List<String> result = null;
 		String t = jsonParser.getText();
 		if (StringUtils.isNotEmpty(t)) {
 			if (StringUtils.contains(t, ",")) {
 				result = Stream.of(t.split(","))
 				               .map(String::trim)
-				               .map(Integer::parseInt)
 				               .collect(Collectors.toList());
 			} else {
-				result = Collections.singletonList(Integer.parseInt(t));
+				result = Collections.singletonList(t);
 			}
 		}
 		return result;

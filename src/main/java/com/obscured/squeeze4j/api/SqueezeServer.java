@@ -260,7 +260,7 @@ public class SqueezeServer extends SlimRequest {
 
     public Search search(String term, Integer skip, Integer take) {
         String s = (skip != null && skip >= 0) ? skip.toString() : "0";
-        String t = (take != null && take >= 1) ? take.toString() : "5";
+        String t = (take != null && take >= 1) ? take.toString() : "10";
         List<Object> list = new ArrayList<>(Arrays.asList("search", s, t, "term:" + term, "extended:1"));
         String params = setParameters(null, list);
         Search results = null;
@@ -280,7 +280,7 @@ public class SqueezeServer extends SlimRequest {
      */
     public SongInfo getSongInfo(String trackIdOrUrl) {
         List<Object> args = new ArrayList<>();
-        args.addAll(Arrays.asList("songinfo", "0", "100", "tags:algcu"));
+        args.addAll(Arrays.asList("songinfo", "0", "100", "tags:aAsSelgGpPcdtyuJ"));
         if (trackIdOrUrl.contains("file://")) {
             args.add("url:" + trackIdOrUrl);
         } else {

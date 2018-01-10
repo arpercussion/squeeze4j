@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.obscured.squeeze4j.converters.ListToString;
-import com.obscured.squeeze4j.converters.StringToList;
+import com.obscured.squeeze4j.converters.ListOfIntToString;
+import com.obscured.squeeze4j.converters.StringToListOfInt;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -68,7 +68,7 @@ public class StatusPlaylists {
     private String album;
 
     @JsonProperty("duration")
-    private String duration;
+    private Double duration;
 
     @JsonProperty("tracknum")
     private String tracknum;
@@ -80,18 +80,18 @@ public class StatusPlaylists {
     private String bitrate;
 
     @JsonProperty("artist_ids")
-    @JsonSerialize(using = ListToString.class)
-    @JsonDeserialize(using = StringToList.class)
+    @JsonSerialize(using = ListOfIntToString.class)
+    @JsonDeserialize(using = StringToListOfInt.class)
     private List<Integer> artistIds;
 
     @JsonProperty("band_ids")
-    @JsonSerialize(using = ListToString.class)
-    @JsonDeserialize(using = StringToList.class)
+    @JsonSerialize(using = ListOfIntToString.class)
+    @JsonDeserialize(using = StringToListOfInt.class)
     private List<Integer> bandIds;
 
     @JsonProperty("composer_ids")
-    @JsonSerialize(using = ListToString.class)
-    @JsonDeserialize(using = StringToList.class)
+    @JsonSerialize(using = ListOfIntToString.class)
+    @JsonDeserialize(using = StringToListOfInt.class)
     private List<Integer> composerIds;
 
     @JsonProperty("url")
@@ -183,11 +183,11 @@ public class StatusPlaylists {
         this.album = album;
     }
 
-    public String getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 

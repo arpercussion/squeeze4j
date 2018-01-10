@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.obscured.squeeze4j.converters.ListToString;
-import com.obscured.squeeze4j.converters.StringToList;
+import com.obscured.squeeze4j.converters.ListOfIntToString;
+import com.obscured.squeeze4j.converters.StringToListOfInt;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -45,33 +45,33 @@ public class Track {
 	private String url;
 
 	@JsonProperty("artist_ids")
-	@JsonSerialize(using = ListToString.class)
-	@JsonDeserialize(using = StringToList.class)
+	@JsonSerialize(using = ListOfIntToString.class)
+	@JsonDeserialize(using = StringToListOfInt.class)
 	private List<Integer> artistIds;
 
 	@JsonProperty("albumartist_ids")
-	@JsonSerialize(using = ListToString.class)
-	@JsonDeserialize(using = StringToList.class)
+	@JsonSerialize(using = ListOfIntToString.class)
+	@JsonDeserialize(using = StringToListOfInt.class)
 	private List<Integer> albumArtistIds;
 
 	@JsonProperty("band_ids")
-	@JsonSerialize(using = ListToString.class)
-	@JsonDeserialize(using = StringToList.class)
+	@JsonSerialize(using = ListOfIntToString.class)
+	@JsonDeserialize(using = StringToListOfInt.class)
 	private List<Integer> bandIds;
 
 	@JsonProperty("conductor_ids")
-	@JsonSerialize(using = ListToString.class)
-	@JsonDeserialize(using = StringToList.class)
+	@JsonSerialize(using = ListOfIntToString.class)
+	@JsonDeserialize(using = StringToListOfInt.class)
 	private List<Integer> conductorIds;
 
 	@JsonProperty("composer_ids")
-	@JsonSerialize(using = ListToString.class)
-	@JsonDeserialize(using = StringToList.class)
+	@JsonSerialize(using = ListOfIntToString.class)
+	@JsonDeserialize(using = StringToListOfInt.class)
 	private List<Integer> composerIds;
 
 	@JsonProperty("trackartist_ids")
-	@JsonSerialize(using = ListToString.class)
-	@JsonDeserialize(using = StringToList.class)
+	@JsonSerialize(using = ListOfIntToString.class)
+	@JsonDeserialize(using = StringToListOfInt.class)
 	private List<Integer> trackArtistIds;
 
 	@JsonProperty("genre_id")

@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.obscured.squeeze4j.converters.StringToList;
-import com.obscured.squeeze4j.converters.ListToString;
+import com.obscured.squeeze4j.converters.StringToListOfInt;
+import com.obscured.squeeze4j.converters.ListOfIntToString;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -27,8 +27,8 @@ public class Album {
 	private String artistId;
 
 	@JsonProperty("artist_ids")
-	@JsonSerialize(using = ListToString.class)
-	@JsonDeserialize(using = StringToList.class)
+	@JsonSerialize(using = ListOfIntToString.class)
+	@JsonDeserialize(using = StringToListOfInt.class)
 	private List<Integer> artistIds;
 
 	@JsonProperty("title")

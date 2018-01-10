@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListToString extends JsonSerializer<List<Integer>> {
+public class ListOfIntToString extends JsonSerializer<List<Integer>> {
 
 	@Override
 	public void serialize(List<Integer> o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
